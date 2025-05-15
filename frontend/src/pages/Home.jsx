@@ -1,0 +1,148 @@
+// import React, { useEffect, useState } from "react";
+// import API from "../api";
+// import "../Styling/Home.css";
+// import { useDispatch } from 'react-redux';
+// import { addProduct } from '../redux/cartSlice';
+
+// const Home = () => {
+
+//  const dispatch = useDispatch();
+  
+//   const addToCart = (product) => {
+//     dispatch(addProduct({
+//       _id: product._id,
+//       title: product.name,
+//       price: product.price,
+//       img: product.imageUrl,
+//       description: product.description
+//     }));
+//   };
+
+//   const [products, setProducts] = useState([]);
+
+//   useEffect(() => {
+//     API.get("/products")
+//       .then((res) => setProducts(res.data))
+//       .catch((err) => console.error("Error fetching products", err));
+//   }, []);
+
+//   const addToCart = (product) => {
+//     const cart = JSON.parse(localStorage.getItem("cart")) || [];
+//     const existing = cart.find((item) => item._id === product._id);
+
+//     if (existing) {
+//       existing.quantity += 1;
+//     } else {
+//       cart.push({ ...product, quantity: 1 });
+//     }
+
+//     localStorage.setItem("cart", JSON.stringify(cart));
+//     alert("Added to cart!");
+//   };
+
+//   return (
+//     <div className="home-container">
+//       <header className="hero-section">
+//         <h1>Welcome to AutoNest</h1>
+//         <p>Your one-stop shop for quality auto parts</p>
+//       </header>
+
+//       <section className="product-section">
+//         <h2>Featured Products</h2>
+//         <div className="product-grid">
+//           {products.map((p) => (
+//             <div key={p._id} className="product-card">
+//               <img src={p.imageUrl} alt={p.name} className="product-image" />
+//               <h3 className="product-name">{p.name}</h3>
+//               <p className="product-description">{p.description}</p>
+//               <p className="product-price">${p.price.toFixed(2)}</p>
+//               <button className="add-to-cart-btn" onClick={() => addToCart(p)}>
+//                 Add to Cart
+//               </button>
+//             </div>
+//           ))}
+//         </div>
+//       </section>
+//     </div>
+//   );
+// };
+
+// export default Home;
+
+
+import React, { useEffect, useState } from "react";
+import API from "../api";
+import "../Styling/Home.css";
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../redux/cartSlice';
+
+const Home = () => {
+  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    API.get("/products")
+      .then((res) => setProducts(res.data))
+      .catch((err) => console.error("Error fetching products", err));
+  }, []);
+
+  const addToCart = (product) => {
+    // Add to Redux store
+    dispatch(addProduct({
+      _id: product._id,
+      title: product.name,
+      price: product.price,
+      img: product.imageUrl,
+      description: product.description
+    }));
+
+    // Also update localStorage as backup
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existing = cart.find((item) => item._id === product._id);
+
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({ 
+        ...product, 
+        quantity: 1,
+        title: product.name,
+        img: product.imageUrl
+      });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Added to cart!");
+  };
+
+  return (
+    <div className="home-container">
+      <header className="hero-section">
+        <h1>Welcome to AutoNest</h1>
+        <p>Your one-stop shop for quality auto parts</p>
+      </header>
+
+      <section className="product-section">
+        <h2>Featured Products</h2>
+        <div className="product-grid">
+          {products.map((p) => (
+            <div key={p._id} className="product-card">
+              <img src={p.imageUrl} alt={p.name} className="product-image" />
+              <h3 className="product-name">{p.name}</h3>
+              <p className="product-description">{p.description}</p>
+              <p className="product-price">${p.price.toFixed(2)}</p>
+              <button 
+                className="add-to-cart-btn" 
+                onClick={() => addToCart(p)}
+              >
+                Add to Cart
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Home;
