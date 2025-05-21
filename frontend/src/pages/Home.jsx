@@ -1,24 +1,16 @@
+
+
+
 // import React, { useEffect, useState } from "react";
 // import API from "../api";
 // import "../Styling/Home.css";
 // import { useDispatch } from 'react-redux';
 // import { addProduct } from '../redux/cartSlice';
+// import placeholderImg from "../assets/images/suspension.jpg"; // ✅ Fallback image
 
 // const Home = () => {
-
-//  const dispatch = useDispatch();
-  
-//   const addToCart = (product) => {
-//     dispatch(addProduct({
-//       _id: product._id,
-//       title: product.name,
-//       price: product.price,
-//       img: product.imageUrl,
-//       description: product.description
-//     }));
-//   };
-
 //   const [products, setProducts] = useState([]);
+//   const dispatch = useDispatch();
 
 //   useEffect(() => {
 //     API.get("/products")
@@ -27,13 +19,26 @@
 //   }, []);
 
 //   const addToCart = (product) => {
+//     dispatch(addProduct({
+//       _id: product._id,
+//       title: product.name,
+//       price: product.price,
+//       img: product.imageUrl ? `http://localhost:5000${product.imageUrl}` : placeholderImg,
+//       description: product.description
+//     }));
+
 //     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 //     const existing = cart.find((item) => item._id === product._id);
 
 //     if (existing) {
 //       existing.quantity += 1;
 //     } else {
-//       cart.push({ ...product, quantity: 1 });
+//       cart.push({
+//         ...product,
+//         quantity: 1,
+//         title: product.name,
+//         img: product.imageUrl ? `http://localhost:5000${product.imageUrl}` : placeholderImg
+//       });
 //     }
 
 //     localStorage.setItem("cart", JSON.stringify(cart));
@@ -52,11 +57,22 @@
 //         <div className="product-grid">
 //           {products.map((p) => (
 //             <div key={p._id} className="product-card">
-//               <img src={p.imageUrl} alt={p.name} className="product-image" />
+//               <img
+//                 src={p.imageUrl ? `http://localhost:5000${p.imageUrl}` : placeholderImg}
+//                 alt={p.name}
+//                 className="product-image"
+//                 onError={(e) => {
+//                   e.target.onerror = null;
+//                   e.target.src = placeholderImg;
+//                 }}
+//               />
 //               <h3 className="product-name">{p.name}</h3>
 //               <p className="product-description">{p.description}</p>
 //               <p className="product-price">${p.price.toFixed(2)}</p>
-//               <button className="add-to-cart-btn" onClick={() => addToCart(p)}>
+//               <button
+//                 className="add-to-cart-btn"
+//                 onClick={() => addToCart(p)}
+//               >
 //                 Add to Cart
 //               </button>
 //             </div>
@@ -70,11 +86,14 @@
 // export default Home;
 
 
+
+
 import React, { useEffect, useState } from "react";
 import API from "../api";
 import "../Styling/Home.css";
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../redux/cartSlice';
+import placeholderImg from "../assets/images/suspension.jpg";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -87,27 +106,25 @@ const Home = () => {
   }, []);
 
   const addToCart = (product) => {
-    // Add to Redux store
     dispatch(addProduct({
       _id: product._id,
       title: product.name,
       price: product.price,
-      img: product.imageUrl,
+      img: product.imageUrl ? `http://localhost:5000${product.imageUrl}` : placeholderImg,
       description: product.description
     }));
 
-    // Also update localStorage as backup
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const existing = cart.find((item) => item._id === product._id);
 
     if (existing) {
       existing.quantity += 1;
     } else {
-      cart.push({ 
-        ...product, 
+      cart.push({
+        ...product,
         quantity: 1,
         title: product.name,
-        img: product.imageUrl
+        img: product.imageUrl ? `http://localhost:5000${product.imageUrl}` : placeholderImg
       });
     }
 
@@ -125,14 +142,22 @@ const Home = () => {
       <section className="product-section">
         <h2>Featured Products</h2>
         <div className="product-grid">
-          {products.map((p) => (
+          {products.slice(0, 8).map((p) => (
             <div key={p._id} className="product-card">
-              <img src={p.imageUrl} alt={p.name} className="product-image" />
+              <img
+                src={p.imageUrl ? `http://localhost:5000${p.imageUrl}` : placeholderImg}
+                alt={p.name}
+                className="product-image"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = placeholderImg;
+                }}
+              />
               <h3 className="product-name">{p.name}</h3>
               <p className="product-description">{p.description}</p>
-              <p className="product-price">${p.price.toFixed(2)}</p>
-              <button 
-                className="add-to-cart-btn" 
+              <p className="product-price">₹{p.price.toFixed(2)}</p>
+              <button
+                className="add-to-cart-btn"
                 onClick={() => addToCart(p)}
               >
                 Add to Cart
