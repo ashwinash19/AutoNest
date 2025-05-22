@@ -101,3 +101,19 @@
 .cart-icon {
   font-size: 1rem;
 }
+
+.filters {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filters select,
+.filters input[type="range"] {
+  padding: 8px; 
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
