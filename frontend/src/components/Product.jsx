@@ -85,11 +85,13 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { FaStar, FaCartPlus } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../redux/cartSlice";
 import API from "../api";
 import "../Styling/Products.css";
 import placeholderImg from "../assets/images/suspension.jpg";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -100,8 +102,11 @@ const Products = () => {
 
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const categoryParam = new URLSearchParams(location.search).get("category");
+
+  const user = useSelector((state) => state.auth.user); // 👈 Check auth state
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -138,6 +143,12 @@ const Products = () => {
   }, [selectedBrand, priceRange, products]);
 
   const handleAddToCart = (product) => {
+    if (!user) {
+      toast.error("Please log in to add products to cart.");
+      navigate("/login");
+      return;
+    }
+
     dispatch(
       addProduct({
         _id: product._id,
@@ -148,7 +159,7 @@ const Products = () => {
         quantity: 1,
       })
     );
-    alert(`${product.name} added to cart!`);
+    toast.success(`${product.name} added to cart!`);
   };
 
   return (
@@ -211,3 +222,4 @@ const Products = () => {
 };
 
 export default Products;
+

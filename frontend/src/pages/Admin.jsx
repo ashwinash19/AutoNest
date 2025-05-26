@@ -101,7 +101,7 @@ const Admin = () => {
             <div key={p._id} className="product-item">
               <div className="product-info">
                 <span className="product-name">{p.name}</span>
-                <span className="product-price">${p.price.toFixed(2)}</span>
+                <span className="product-price">₹{p.price.toFixed(2)}</span>
               </div>
               <div className="product-actions">
                 <button 

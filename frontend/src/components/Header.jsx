@@ -178,7 +178,8 @@ import { FaCar, FaTools, FaShoppingCart, FaClipboardList, FaUser, FaPhone } from
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/authSlice';
 import { clearCart } from '../redux/cartSlice';
-import '../Styling/Header.css'; // Assuming you'll convert styles to CSS
+import '../Styling/Header.css';
+import Admin from "../pages/Admin";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -193,7 +194,6 @@ const Header = () => {
         setDropdownOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -238,6 +238,11 @@ const Header = () => {
               <div className="dropdown-menu">
                 <div className="dropdown-item"><strong>{user.name}</strong></div>
                 <Link to="/profile" className="dropdown-item">Profile</Link>
+                
+                {user.role === 'admin' && (
+                  <Link to="/admin" className="dropdown-item admin-link">Admin Dashboard</Link>
+                )}
+                
                 <div className="dropdown-item" onClick={handleLogout}>Logout</div>
               </div>
             )}

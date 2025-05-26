@@ -84,6 +84,8 @@ const path = require("path");
 
 const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+const contactRoutes = require("./routes/contactRoutes");
 
 dotenv.config();
 
@@ -100,6 +102,8 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Register routes
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/contacts", contactRoutes);
 
 // Connect to MongoDB and start server only if successful
 mongoose
