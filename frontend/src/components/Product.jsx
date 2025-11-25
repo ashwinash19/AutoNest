@@ -190,7 +190,7 @@ const Products = () => {
         {filtered.map((product) => (
           <div key={product._id} className="product-card">
             <img
-              src={product.imageUrl ? `http://localhost:5000${product.imageUrl}` : placeholderImg}
+              src={product.imageUrl ? `https://autonest.onrender.com${product.imageUrl}` : placeholderImg}
               alt={product.name}
               className="product-img"
               onError={(e) => {
