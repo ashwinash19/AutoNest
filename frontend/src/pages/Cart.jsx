@@ -175,7 +175,8 @@ const Cart = () => {
             {cart.products.map((product) => (
               <div key={product._id} className="cart-item">
                 <img 
-                  src={product.img?.startsWith("http") ? product.img : `http://localhost:5000${product.img}`} 
+                 src={product.img?.startsWith("http")? product.img: `https://autonest.onrender.com${product.img}`}
+ 
                   alt={product.title} 
                   className="cart-item-img"
                   onError={(e) => {

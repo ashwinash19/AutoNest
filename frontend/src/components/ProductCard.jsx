@@ -26,7 +26,7 @@ const ProductCard = ({ product }) => {
   return (
     <div className="product-card">
       <img 
-        src={product.image} 
+        src={product.image?.startsWith("http")? product.image: `https://autonest.onrender.com${product.image}`} 
         alt={product.name} 
         className="product-image"
         onError={(e) => {

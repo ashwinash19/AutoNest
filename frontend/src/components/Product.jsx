@@ -154,7 +154,7 @@ const Products = () => {
         _id: product._id,
         title: product.name,
         price: product.price,
-        img: product.imageUrl ? `http://localhost:5000${product.imageUrl}` : placeholderImg,
+        img: product.imageUrl ? `https://autonest.onrender.com${product.imageUrl}` : placeholderImg,
         description: product.description,
         quantity: 1,
       })

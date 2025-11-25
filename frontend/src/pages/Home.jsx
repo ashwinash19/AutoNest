@@ -88,7 +88,6 @@
 // export default Home;
 
 
-
 import React, { useEffect, useState } from "react";
 import API from "../api";
 import "../Styling/Home.css";
@@ -101,7 +100,7 @@ const Home = () => {
   useEffect(() => {
     API.get("/products")
       .then((res) => {
-        const uniqueCategories = [...new Set(res.data.map(p => p.category))];
+        const uniqueCategories = [...new Set(res.data.map((p) => p.category))];
         setCategories(uniqueCategories);
       })
       .catch((err) => console.error("Error fetching categories", err));
@@ -114,8 +113,19 @@ const Home = () => {
   return (
     <div className="home-container">
       <header className="hero-section">
-        <h1>Welcome to AutoNest</h1>
-        <p>Your one-stop shop for quality auto parts</p>
+        {/* Background video */}
+        <div className="hero-video">
+          <video autoPlay loop muted className="video-bg">
+            <source src="/bmw.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        {/* Overlay content */}
+        <div className="hero-content">
+          <h1>Welcome to AutoNest</h1>
+          <p>Your one-stop shop for quality auto parts</p>
+        </div>
       </header>
 
       <section className="category-section">

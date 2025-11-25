@@ -112,6 +112,7 @@ body {
 
 
 /* General Styles */
+/* General Styles */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -119,34 +120,62 @@ body {
   color: #333;
 }
 
-/* Hero Section */
+/* Hero Section with Gradient Background */
 .hero-section {
-  background-color: #1e3a8a;
+  position: relative;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6); /* Subtle blue gradient */
   color: #fff;
+}
+
+.hero-content {
   text-align: center;
-  padding: 60px 20px;
+  max-width: 90%;
+  padding: 40px 20px;
+  border-radius: 12px;
+  animation: fadeIn 2s ease-in-out; /* Smooth fade-in */
 }
 
-.hero-section h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
+.hero-content h1 {
+  font-size: 4rem;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
-.hero-section p {
-  font-size: 1.2rem;
+.hero-content p {
+  font-size: 1.3rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Category Section */
 .category-section {
-  padding: 40px 20px;
+  padding: 60px 20px;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
+  background-color: #fff;
+  border-top: 4px solid #1e3a8a;
+  border-radius: 0 0 12px 12px;
 }
 
 .category-section h2 {
   font-size: 2rem;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   color: #1e3a8a;
 }
 
@@ -165,26 +194,33 @@ body {
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s, color 0.3s;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
 
 .category-button:hover {
   background-color: #1e3a8a;
   color: white;
+  transform: translateY(-2px);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .hero-section h1 {
+  .hero-content h1 {
     font-size: 2.5rem;
   }
 
+  .hero-content p {
+    font-size: 1rem;
+  }
+
   .category-section h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .category-button {
-    padding: 10px 16px;
+    padding: 10px 14px;
     font-size: 0.95rem;
   }
 }
+
