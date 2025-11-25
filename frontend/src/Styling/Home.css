@@ -133,7 +133,7 @@ HERO SECTION WITH VIDEO
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6); /* fallback */
+  background: none; /* removed blue gradient */
   color: #fff;
   overflow: hidden;
 }
@@ -151,17 +151,13 @@ HERO SECTION WITH VIDEO
 
 /* Hero video styling */
 .video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;        /* desktop: fill container */
-  transform: scale(0.95);  /* slight zoom out */
-}
-
-@media (max-width: 768px) {
-  .video-bg {
-    object-fit: contain;    /* mobile: show full video */
-    transform: scale(1);    /* no zoom */
-  }
+  object-fit: cover; /* ensures full coverage */
+  z-index: -1;       /* behind content */
 }
 
 /* Dark overlay for better text readability */
@@ -273,5 +269,9 @@ RESPONSIVE DESIGN
   .category-button {
     padding: 10px 14px;
     font-size: 0.95rem;
+  }
+
+  .video-bg {
+    object-fit: cover; /* mobile: still cover hero section */
   }
 }
