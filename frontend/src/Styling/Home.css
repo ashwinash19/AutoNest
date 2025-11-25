@@ -112,7 +112,9 @@ body {
 
 
 /* General Styles */
-/* General Styles */
+/* ---------------------------
+GENERAL STYLES
+--------------------------- */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -120,9 +122,9 @@ body {
   color: #333;
 }
 
-/* ---------------------------------------------------
-   HERO SECTION WITH BACKGROUND VIDEO
---------------------------------------------------- */
+/* ---------------------------
+HERO SECTION WITH VIDEO
+--------------------------- */
 .hero-section {
   position: relative;
   height: 80vh;
@@ -131,7 +133,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6); /* fallback gradient */
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6); /* fallback */
   color: #fff;
   overflow: hidden;
 }
@@ -147,15 +149,32 @@ body {
   overflow: hidden;
 }
 
-/* Video styles — less zoomed */
+/* Hero video styling */
 .video-bg {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* full video visible */
-  transform: scale(1); /* no extra zoom */
+  object-fit: cover;        /* desktop: fill container */
+  transform: scale(0.95);  /* slight zoom out */
 }
 
-/* Centered text above video */
+@media (max-width: 768px) {
+  .video-bg {
+    object-fit: contain;    /* mobile: show full video */
+    transform: scale(1);    /* no zoom */
+  }
+}
+
+/* Dark overlay for better text readability */
+.hero-video::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 1;
+}
+
+/* Text on top of video */
 .hero-content {
   position: absolute;
   top: 50%;
@@ -191,9 +210,9 @@ body {
   }
 }
 
-/* ---------------------------------------------------
-   CATEGORY SECTION
---------------------------------------------------- */
+/* ---------------------------
+CATEGORY SECTION
+--------------------------- */
 .category-section {
   padding: 60px 20px;
   max-width: 1200px;
@@ -235,9 +254,9 @@ body {
   transform: translateY(-2px);
 }
 
-/* ---------------------------------------------------
-   RESPONSIVE DESIGN
---------------------------------------------------- */
+/* ---------------------------
+RESPONSIVE DESIGN
+--------------------------- */
 @media (max-width: 768px) {
   .hero-content h1 {
     font-size: 2.6rem;
@@ -256,4 +275,3 @@ body {
     font-size: 0.95rem;
   }
 }
-
