@@ -112,7 +112,6 @@ body {
 
 
 /* General Styles */
-/* General Styles */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -120,49 +119,83 @@ body {
   color: #333;
 }
 
-/* Hero Section with Gradient Background */
+/* ---------------------------------------------------
+   HERO SECTION WITH BACKGROUND VIDEO
+--------------------------------------------------- */
+
 .hero-section {
   position: relative;
   height: 80vh;
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6); /* Subtle blue gradient */
+  align-items: center; 
+  justify-content: center; 
+  text-align: center;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6); /* fallback gradient */
   color: #fff;
+  overflow: hidden; /* to hide video overflow */
 }
 
+/* Video container behind text */
+.hero-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Responsive background video */
+.hero-video-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none; /* make video unclickable */
+  object-fit: cover;
+}
+
+/* Centered text above video */
 .hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
   text-align: center;
   max-width: 90%;
-  padding: 40px 20px;
-  border-radius: 12px;
-  animation: fadeIn 2s ease-in-out; /* Smooth fade-in */
+  padding: 20px;
+  animation: fadeIn 2s ease-in-out;
 }
 
 .hero-content h1 {
   font-size: 4rem;
   margin-bottom: 15px;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 .hero-content p {
   font-size: 1.3rem;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
 }
 
-/* Fade-in Animation */
+/* Fade-in animation */
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate(-50%, -45%);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, -50%);
   }
 }
 
-/* Category Section */
+/* ---------------------------------------------------
+   CATEGORY SECTION
+--------------------------------------------------- */
+
 .category-section {
   padding: 60px 20px;
   max-width: 1200px;
@@ -204,10 +237,12 @@ body {
   transform: translateY(-2px);
 }
 
-/* Responsive Design */
+/* ---------------------------------------------------
+   RESPONSIVE DESIGN
+--------------------------------------------------- */
 @media (max-width: 768px) {
   .hero-content h1 {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
   }
 
   .hero-content p {
@@ -223,4 +258,3 @@ body {
     font-size: 0.95rem;
   }
 }
-

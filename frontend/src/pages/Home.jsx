@@ -87,7 +87,6 @@
 
 // export default Home;
 
-
 import React, { useEffect, useState } from "react";
 import API from "../api";
 import "../Styling/Home.css";
@@ -103,7 +102,7 @@ const Home = () => {
         const uniqueCategories = [...new Set(res.data.map((p) => p.category))];
         setCategories(uniqueCategories);
       })
-      .catch((err) => console.error("Error fetching categories", err));
+      .catch((err) => console.error(err));
   }, []);
 
   const handleCategoryClick = (category) => {
@@ -111,37 +110,42 @@ const Home = () => {
   };
 
   return (
-    <div className="home-container">
-      <header className="hero-section">
-        {/* Background video */}
-        <div className="hero-video">
-          <video autoPlay loop muted className="video-bg">
-            <source src="/bmw.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+    <div>
+
+      {/* ---------------- HERO SECTION WITH CLOUDINARY VIDEO ---------------- */}
+      <div className="hero-section">
+
+        <div className="hero-video-container">
+          <iframe
+            src="https://player.cloudinary.com/embed/?cloud_name=duuludq4d&public_id=bmw_fdoxoy&profile=cld-default"
+            allow="autoplay; fullscreen"
+          ></iframe>
         </div>
 
-        {/* Overlay content */}
         <div className="hero-content">
           <h1>Welcome to AutoNest</h1>
-          <p>Your one-stop shop for quality auto parts</p>
+          <p>Premium accessories for your car—Drive in style.</p>
         </div>
-      </header>
 
-      <section className="category-section">
-        <h2>Select a Category</h2>
+      </div>
+
+
+      {/* ---------------- CATEGORY SECTION ---------------- */}
+      <div className="category-section">
+        <h2>Select Your Category</h2>
+
         <div className="category-buttons">
-          {categories.map((cat) => (
+          {categories.map((cat, index) => (
             <button
-              key={cat}
-              onClick={() => handleCategoryClick(cat)}
+              key={index}
               className="category-button"
+              onClick={() => handleCategoryClick(cat)}
             >
               {cat}
             </button>
           ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 };
