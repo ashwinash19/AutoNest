@@ -86,7 +86,6 @@
 // };
 
 // export default Home;
-
 import React, { useEffect, useState } from "react";
 import API from "../api";
 import "../Styling/Home.css";
@@ -102,7 +101,7 @@ const Home = () => {
         const uniqueCategories = [...new Set(res.data.map((p) => p.category))];
         setCategories(uniqueCategories);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("Error fetching categories", err));
   }, []);
 
   const handleCategoryClick = (category) => {
@@ -110,44 +109,51 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="home-container">
 
-      {/* ---------------- HERO SECTION WITH CLOUDINARY VIDEO ---------------- */}
-      <div className="hero-section">
-
-        <div className="hero-video-container">
-          <iframe
-            src="https://player.cloudinary.com/embed/?cloud_name=duuludq4d&public_id=bmw_fdoxoy&profile=cld-default"
-            allow="autoplay; fullscreen"
-          ></iframe>
+      <header className="hero-section">
+        {/* Background video */}
+        <div className="hero-video">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="video-bg"
+          >
+            <source
+              src="https://res.cloudinary.com/duuludq4d/video/upload/bmw_fdoxoy.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
         </div>
 
+        {/* Overlay content */}
         <div className="hero-content">
           <h1>Welcome to AutoNest</h1>
-          <p>Premium accessories for your car—Drive in style.</p>
+          <p>Your one-stop shop for quality auto parts</p>
         </div>
+      </header>
 
-      </div>
-
-
-      {/* ---------------- CATEGORY SECTION ---------------- */}
-      <div className="category-section">
-        <h2>Select Your Category</h2>
-
+      <section className="category-section">
+        <h2>Select a Category</h2>
         <div className="category-buttons">
-          {categories.map((cat, index) => (
+          {categories.map((cat) => (
             <button
-              key={index}
-              className="category-button"
+              key={cat}
               onClick={() => handleCategoryClick(cat)}
+              className="category-button"
             >
               {cat}
             </button>
           ))}
         </div>
-      </div>
+      </section>
+
     </div>
   );
 };
 
 export default Home;
+
