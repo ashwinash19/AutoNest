@@ -112,6 +112,7 @@ body {
 
 
 /* General Styles */
+/* General Styles */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -122,22 +123,21 @@ body {
 /* ---------------------------------------------------
    HERO SECTION WITH BACKGROUND VIDEO
 --------------------------------------------------- */
-
 .hero-section {
   position: relative;
   height: 80vh;
   width: 100%;
   display: flex;
-  align-items: center; 
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
   text-align: center;
   background: linear-gradient(135deg, #1e3a8a, #3b82f6); /* fallback gradient */
   color: #fff;
-  overflow: hidden; /* to hide video overflow */
+  overflow: hidden;
 }
 
 /* Video container behind text */
-.hero-video-container {
+.hero-video {
   position: absolute;
   top: 0;
   left: 0;
@@ -147,13 +147,12 @@ body {
   overflow: hidden;
 }
 
-/* Responsive background video */
-.hero-video-container iframe {
+/* Video styles — less zoomed */
+.video-bg {
   width: 100%;
   height: 100%;
-  border: none;
-  pointer-events: none; /* make video unclickable */
-  object-fit: cover;
+  object-fit: contain; /* full video visible */
+  transform: scale(1); /* no extra zoom */
 }
 
 /* Centered text above video */
@@ -195,7 +194,6 @@ body {
 /* ---------------------------------------------------
    CATEGORY SECTION
 --------------------------------------------------- */
-
 .category-section {
   padding: 60px 20px;
   max-width: 1200px;
@@ -258,3 +256,4 @@ body {
     font-size: 0.95rem;
   }
 }
+
